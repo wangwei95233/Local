@@ -24,8 +24,8 @@
         },
         bindEvents: function(){           
             this.form.addEventListener('submit', (e)=>{
-                e.preventDefault()
-                this.saveMessage()
+                    e.preventDefault()
+                    this.saveMessage()           
             })
         },
         saveMessage: function(){
@@ -36,12 +36,16 @@
                 'name': name, 'content': content
             }).then(
                 function(object) {
-                let li = document.createElement('li')
+                if(object.attributes.name !== '' && object.attributes.content !== ''){
+                    let li = document.createElement('li')
                 li.innerText = `${object.attributes.name}: ${object.attributes.content}`
                 let messageList = document.querySelector('#messageList')
                 messageList.appendChild(li)
                 myForm.querySelector('input[name=content]').value = ''
-                myForm.querySelector('input[name=name]').value = ''                  
+                myForm.querySelector('input[name=name]').value = '' 
+                }else{
+                    alert('请把姓名和内容都补充完整')
+                }                                        
             })
         }
     })
